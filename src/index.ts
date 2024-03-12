@@ -1,5 +1,6 @@
 import cors from 'cors'
 import express from 'express'
+import { Server } from 'socket.io'
 import apiRouter from './routes/api'
 
 const main = async () => {
@@ -9,8 +10,22 @@ const main = async () => {
   app.use(express.urlencoded({ extended: true }))
   app.use('/', apiRouter)
 
-  app.listen(3000, () => {
-    console.log('Server is running on port 3000')
+  const server = app.listen(8080, () => {
+    console.log('Server is running on port 8080')
+  })
+
+  const io = new Server(server, {
+    cors: {
+      origin: '*',
+    },
+  })
+
+  io.on('connection', (socket) => {
+    console.log('a user connected')
+    socket.on('chat message', (msg) => {
+      console.log('message: ' + msg)
+      io.emit('chat message', msg)
+    })
   })
 }
 
