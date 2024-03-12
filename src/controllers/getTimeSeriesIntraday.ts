@@ -28,9 +28,7 @@ const getTimeSeriesIntraday = async (req: Request, res: Response) => {
   const symbol = req.query.symbol
 
   try {
-    if (typeof symbol !== 'string' || symbol.length === 0) {
-      throw new Error('Invalid symbol')
-    }
+    if (!symbol) return res.status(400).send('Symbol is required')
 
     const response = await alphaVantage.get<TimeSeriesIntradayData>('', {
       params: {
