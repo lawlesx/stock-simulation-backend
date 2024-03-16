@@ -13,7 +13,7 @@ env.config()
 const router = express.Router()
 
 router.get('/time-series-intraday', getTimeSeriesIntraday)
-router.get('daily', getDaily)
+router.get('/daily', getDaily)
 router.get('/weekly', getWeekly)
 router.get('/market-status', getGlobalMarketStatus)
 router.get('/quote', getQuote)

@@ -26,6 +26,8 @@ const main = async () => {
       console.log('message: ' + msg)
       io.emit('chat message', msg)
     })
+
+    socket.emit('read-changes', { someProperty: 'some value', otherProperty: 'other value' })
   })
 }
 
