@@ -1,6 +1,7 @@
 import cors from 'cors'
 import express from 'express'
 import { Server } from 'socket.io'
+import { getFluctuatingTimeSeriesIntraday } from './controllers/getTimeSeriesIntraday'
 import apiRouter from './routes/api'
 
 const main = async () => {
@@ -27,7 +28,7 @@ const main = async () => {
       io.emit('chat message', msg)
     })
 
-    socket.emit('read-changes', { someProperty: 'some value', otherProperty: 'other value' })
+    getFluctuatingTimeSeriesIntraday('AAPL', socket)
   })
 }
 
